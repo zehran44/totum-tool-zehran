@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Totum Tool</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      background: #ffffff;
+      width: 100%;
+      text-align: center;
+      padding: 20px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    #grid {
+      display: grid;
+      margin-top: 20px;
+      border: 1px solid #ccc;
+    }
+    .cell {
+      width: 20px;
+      height: 20px;
+      background: white;
+      border: 1px solid #eee;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .controls {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    input[type=color], input[type=number], button {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    section {
+      max-width: 800px;
+      margin: 40px auto;
+      text-align: center;
+      padding: 20px;
+    }
+    footer {
+      margin: 30px 0;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>TOTUM TOOL</header>
+
+  <div class="controls">
+    <label>Grid Size: <input id="gridSize" type="number" value="16" min="4" max="64"></label>
+    <label>Pixel Color: <input id="colorPicker" type="color" value="#007bff"></label>
+    <button onclick="createGrid()">Create Grid</button>
+    <button onclick="clearGrid()">Clear</button>
+  </div>
+
+  <div id="grid"></div>
+
+  <section>
+    <h2>About Totum Tool</h2>
+    <p>
+      <strong>Totum Tool</strong> is a creative online space where anyone can build digital art — one square at a time.
+      It starts with <strong>Pixel Editing</strong>, a tool that lets you paint, design, and create shapes using tiny blocks.
+      Made by <strong>Zehran</strong>, Totum Tool is growing into a full creative platform where you’ll soon find more powerful and fun editing tools for artists and gamers alike.
+    </p>
+  </section>
+
+  <footer>Made by Zehran © 2025</footer>
+
+  <script>
+    const gridContainer = document.getElementById('grid');
+    const colorPicker = document.getElementById('colorPicker');
+
+    function createGrid() {
+      const size = parseInt(document.getElementById('gridSize').value);
+      gridContainer.innerHTML = '';
+      gridContainer.style.gridTemplateColumns = `repeat(${size}, 20px)`;
+      for (let i = 0; i < size * size; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.addEventListener('click', () => {
+          cell.style.backgroundColor = cell.style.backgroundColor ? '' : colorPicker.value;
+        });
+        gridContainer.appendChild(cell);
+      }
+    }
+
+    function clearGrid() {
+      document.querySelectorAll('.cell').forEach(cell => cell.style.backgroundColor = '');
+    }
+
+    createGrid();
+  </script>
+</body>
+</html>
